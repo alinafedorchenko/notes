@@ -1,0 +1,5 @@
+import_notes_blog_job:
+  cron: '0 12 * * *'
+  rails_env: production
+  class: ResqueJobs::ImportNotesJob
+  description: Import notes job that runs once a day
