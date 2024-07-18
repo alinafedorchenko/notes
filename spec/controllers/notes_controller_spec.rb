@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe NotesController, type: :controller do
+describe NotesController, type: :controller do
   let!(:note) { create(:note, title: "First note", content: "This is a test note.") }
   let!(:note_2) { create(:note, title: "Second note", content: "This is a test note2.") }
 

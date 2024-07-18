@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Note, type: :model do
+describe Note, type: :model do
   let(:valid_params) { { title: 'title', content: 'description' } }
   let(:invalid_params) { { title: '', content: '' } }
 
