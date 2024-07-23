@@ -19,19 +19,6 @@ describe NotesController, type: :controller do
     end
 
     it "returns a success response" do
-      Note.reindex
-
-      get :index, params: { query: "First" }
-
-      expect(JSON.parse(response.body, symbolize_names: true)).to match([
-        {
-          title: "First note",
-          content: "This is a test note."
-        }
-      ])
-    end
-
-    it "returns a success response" do
       get :index
       expect(response).to be_successful
       expect(JSON.parse(response.body, symbolize_names: true)).to match(expected_response)

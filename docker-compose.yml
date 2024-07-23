@@ -1,0 +1,65 @@
+version: "3.7"
+services:
+  db:
+    image: "mysql:8.0-bullseye"
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: app
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    ports:
+      - "3307:3306"
+  redis:
+    image: redis:4.0-alpine
+    command: redis-server
+    volumes:
+      - redis:/data
+    ports:
+      - 6379
+    logging:
+      driver: none
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.22
+    environment:
+      - node.name=es01
+      - cluster.name=es-docker-cluster
+      - cluster.initial_master_nodes=es01
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - data01:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+  web:
+    build: .
+    command: bundle exec rails s -p 3000 -e development -b '0.0.0.0'
+    environment:
+      DB_USER: root
+      DB_NAME: app
+      DB_PASSWORD: password
+      DB_HOST: db
+      RAILS_ENV: development
+      RAILS_MAX_THREADS: 5
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      BUNDLE_PATH: /bundle
+    volumes:
+      - ./:/notes
+      - bundle:/bundle
+    ports:
+      - "3000:3000"
+    depends_on:
+      - "db"
+      - "redis"
+      - "elasticsearch"
+volumes:
+  db:
+  bundle:
+  redis:
+  data01:
+    driver: local

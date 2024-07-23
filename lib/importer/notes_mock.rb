@@ -5,11 +5,9 @@ class Importer::NotesMock < Importer::Base
   end
 
   def perform
-    Searchkick.callbacks(false) do
+    Chewy.strategy(:atomic) do
       notes = @loader.load
       Note.import(notes)
     end
-
-    Note.reindex
   end
 end

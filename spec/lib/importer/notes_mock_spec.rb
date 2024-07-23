@@ -12,7 +12,6 @@ describe Importer::NotesMock do
 
       expect(loader).to receive(:load).and_return(notes)
       expect(Note).to receive(:import).with(notes)
-      expect(Note).to receive(:reindex)
 
       importer = Importer::NotesMock.new(loader: loader)
       importer.perform

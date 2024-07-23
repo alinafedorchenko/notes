@@ -4,7 +4,7 @@ class NotesController < ApplicationController
 
   def index
     if params[:query].present?
-      @notes = Note.search(params[:query])
+      @notes = Note.es_search(params[:query])
     else
       @notes = Note.all
     end
@@ -17,7 +17,7 @@ class NotesController < ApplicationController
   end
 
   def create
-    result = Note::Create.new(note_params:).call
+    result = Note::Create.new(note_params: note_params).call
 
     if result.success?
       render_success(result.note)
@@ -27,7 +27,7 @@ class NotesController < ApplicationController
   end
 
   def update
-    result = Note::Update.new(note: @note, note_params:).call
+    result = Note::Update.new(note: @note, note_params: note_params).call
 
     if result.success?
       render_success(result.note)
