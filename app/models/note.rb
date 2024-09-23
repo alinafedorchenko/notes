@@ -1,5 +1,7 @@
 class Note < ApplicationRecord
 
+  has_one_attached :file
+
   validates :title, :content, presence: true
 
   update_index('notes') { self }

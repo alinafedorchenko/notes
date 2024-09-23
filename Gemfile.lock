@@ -82,6 +82,24 @@ GEM
       minitest (>= 5.1)
       mutex_m
       tzinfo (~> 2.0)
+    addressable (2.8.7)
+      public_suffix (>= 2.0.2, < 7.0)
+    aws-eventstream (1.3.0)
+    aws-partitions (1.977.0)
+    aws-sdk-core (3.207.0)
+      aws-eventstream (~> 1, >= 1.3.0)
+      aws-partitions (~> 1, >= 1.651.0)
+      aws-sigv4 (~> 1.9)
+      jmespath (~> 1, >= 1.6.1)
+    aws-sdk-kms (1.92.0)
+      aws-sdk-core (~> 3, >= 3.207.0)
+      aws-sigv4 (~> 1.5)
+    aws-sdk-s3 (1.164.0)
+      aws-sdk-core (~> 3, >= 3.207.0)
+      aws-sdk-kms (~> 1)
+      aws-sigv4 (~> 1.5)
+    aws-sigv4 (1.10.0)
+      aws-eventstream (~> 1, >= 1.0.2)
     base64 (0.2.0)
     bigdecimal (3.1.8)
     bootsnap (1.18.3)
@@ -95,6 +113,9 @@ GEM
       elasticsearch-dsl
     concurrent-ruby (1.3.3)
     connection_pool (2.4.1)
+    crack (1.0.0)
+      bigdecimal
+      rexml
     crass (1.0.6)
     date (3.3.4)
     debug (1.9.2)
@@ -134,12 +155,14 @@ GEM
     hanami-utils (2.0.0.beta1)
       concurrent-ruby (~> 1.0)
       dry-transformer (~> 0.1)
+    hashdiff (1.1.0)
     i18n (1.14.5)
       concurrent-ruby (~> 1.0)
     io-console (0.7.2)
     irb (1.14.0)
       rdoc (>= 4.0.0)
       reline (>= 0.4.2)
+    jmespath (1.6.2)
     jsonapi-renderer (0.2.2)
     logger (1.6.0)
     loofah (2.22.0)
@@ -186,6 +209,7 @@ GEM
       racc (~> 1.4)
     psych (5.1.2)
       stringio
+    public_suffix (6.0.1)
     puma (6.4.2)
       nio4r (~> 2.0)
     raabro (1.4.0)
@@ -251,6 +275,8 @@ GEM
       redis (>= 3.3)
       resque (>= 1.27)
       rufus-scheduler (~> 3.2, != 3.3)
+    rexml (3.3.2)
+      strscan
     rspec-core (3.13.0)
       rspec-support (~> 3.13.0)
     rspec-expectations (3.13.1)
@@ -280,12 +306,17 @@ GEM
       rack-session (>= 2.0.0, < 3)
       tilt (~> 2.0)
     stringio (3.1.1)
+    strscan (3.1.0)
     thor (1.3.1)
     tilt (2.4.0)
     timeout (0.4.1)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     uri (0.13.0)
+    webmock (3.23.1)
+      addressable (>= 2.8.0)
+      crack (>= 0.3.2)
+      hashdiff (>= 0.4.0, < 2.0.0)
     webrick (1.8.1)
     websocket-driver (0.7.6)
       websocket-extensions (>= 0.1.0)
@@ -303,6 +334,7 @@ PLATFORMS
 DEPENDENCIES
   active_model_serializers
   activerecord-import
+  aws-sdk-s3
   bootsnap
   chewy (>= 7.2.7)
   debug
@@ -316,6 +348,7 @@ DEPENDENCIES
   resque-scheduler
   rspec-rails
   simple-interactors (= 0.0.2)
+  webmock
 
 RUBY VERSION
    ruby 3.0.7p220

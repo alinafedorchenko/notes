@@ -14,6 +14,7 @@ gem "redis"
 gem "resque"
 gem "resque-scheduler"
 gem "activerecord-import"
+gem "aws-sdk-s3", require: false
 
 group :development, :test do
   gem "debug"
